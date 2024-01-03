@@ -534,7 +534,7 @@ func (c *Consumer) Consume(handlerFunc ConsumeHandler, opts ...ConsumingOpt) err
 			select {
 			case <-ticker.C:
 				msgs, err := c.fetchSubscription(partitionKey, partitionNumber)
-				handlerFunc(msgs, memphisError(err), nil)
+				handlerFunc(msgs, memphisError(err), c.context)
 			case <-c.consumeQuit:
 				return
 			}
